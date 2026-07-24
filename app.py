@@ -42,13 +42,86 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Injection du CSS global + correctif personnalisé pour la taille de la période
-CUSTOM_CSS = CSS_APPLICATION + """
+# Injection du CSS — Thème Bleu Ardoise (Option 2) avec Cadre Doré
+CUSTOM_CSS = """
 <style>
-    /* Réduction ciblée pour que la période ne soit pas coupée */
+    /* 1. Fond général Bleu Ardoise */
+    .stApp, [data-testid="stSidebar"] {
+        background-color: #0F172A !important;
+        color: #F8FAFC !important;
+    }
+
+    /* 2. BANDEAU D'EN-TÊTE (Cadre Ardoise + Bordure Dorée) */
+    .platform-banner {
+        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
+        border: 1px solid #C59B27 !important; /* Bordure dorée */
+        border-radius: 10px !important;
+        padding: 24px 32px !important;
+        margin-bottom: 24px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .platform-kicker {
+        color: #C59B27 !important; /* "BANK OF AFRICA" en doré */
+        font-family: 'Segoe UI', sans-serif !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 2.5px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 6px !important;
+    }
+
+    .platform-title {
+        color: #F8FAFC !important;
+        font-family: 'Segoe UI', sans-serif !important;
+        font-size: 1.6rem !important;
+        font-weight: 700 !important;
+        margin: 0 0 6px 0 !important;
+    }
+
+    .platform-subtitle {
+        color: #94A3B8 !important;
+        font-family: 'Segoe UI', sans-serif !important;
+        font-size: 0.92rem !important;
+        margin: 0 !important;
+    }
+
+    .platform-divider {
+        border: none !important;
+        border-top: 1px solid #C59B27 !important; /* Séparateur doré */
+        opacity: 0.5 !important;
+        margin-top: 16px !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* 3. Style des cartes en Ardoise */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #1E293B !important;
+        border: 1px solid #334155 !important;
+        border-radius: 10px !important;
+    }
+
+    /* 4. Métriques */
+    div[data-testid="stMetric"] {
+        background-color: #334155 !important;
+        border: 1px solid #475569 !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-testid="stMetricLabel"] {
+        color: #94A3B8 !important;
+        font-size: 0.8rem !important;
+        text-transform: uppercase;
+    }
+
     div[data-testid="stMetricValue"] {
+        color: #38BDF8 !important;
         font-size: 1.05rem !important;
-        white-space: nowrap;
+        white-space: nowrap !important;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, label, .stMarkdown {
+        color: #F8FAFC !important;
     }
 </style>
 """
