@@ -64,6 +64,13 @@ def appliquer_theme_graphique():
         "legend.edgecolor": COLOR_BORDER,
     })
 
+[theme]
+base = "dark"
+primaryColor = "#C59B27"
+backgroundColor = "#0A192F"
+secondaryBackgroundColor = "#112240"
+textColor = "#E6F1FF"
+font = "sans serif"
 
 # ==============================================================================
 # CSS INJECTÉ DANS L'APPLICATION (bandeau, cartes, boutons, badges d'étape)

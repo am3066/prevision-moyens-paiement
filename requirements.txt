@@ -6,3 +6,4 @@ matplotlib
 statsmodels
 python-docx
 kaleido
+openpyxl

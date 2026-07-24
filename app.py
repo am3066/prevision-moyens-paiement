@@ -42,86 +42,122 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Injection du CSS — Thème Bleu Ardoise (Option 2) avec Cadre Doré
+## Injection CSS globale pour supprimer TOUT fond blanc ou transparent résiduel et bloquer le Dark Mode
 CUSTOM_CSS = """
 <style>
-    /* 1. Fond général Bleu Ardoise */
-    .stApp, [data-testid="stSidebar"] {
-        background-color: #0F172A !important;
-        color: #F8FAFC !important;
+    /* Force le schéma de couleurs sombre au niveau du navigateur */
+    :root {
+        color-scheme: dark !important;
     }
 
-    /* 2. BANDEAU D'EN-TÊTE (Cadre Ardoise + Bordure Dorée) */
+    html, body {
+        background-color: #0A192F !important;
+        color: #E6F1FF !important;
+    }
+
+    /* 1. Force le fond global et la sidebar */
+    .stApp, [data-testid="stSidebar"], section[data-testid="stSidebar"] > div {
+        background-color: #0A192F !important;
+        color: #E6F1FF !important;
+    }
+
+    /* 2. Cible les conteneurs, cartes et bordures natifs */
+    div[data-testid="stVerticalBlockBorderWrapper"], 
+    div[data-testid="stForm"] {
+        background-color: #112240 !important;
+        border: 1px solid #1D2D50 !important;
+        border-radius: 10px !important;
+    }
+
+    /* 3. CORRECTION SPÉCIFIQUE DU FILE UPLOADER */
+    div[data-testid="stFileUploader"], 
+    div[data-testid="stFileUploader"] section,
+    div[data-testid="stFileUploaderDropzone"] {
+        background-color: #112240 !important;
+        border: 1px dashed #C59B27 !important;
+        color: #E6F1FF !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-testid="stFileUploaderFileData"] {
+        background-color: #0A192F !important;
+        border: 1px solid #1D2D50 !important;
+        color: #E6F1FF !important;
+    }
+
+    /* 4. Selectbox, Inputs et Menus Déroulants */
+    div[data-baseweb="select"] > div, 
+    div[data-baseweb="input"] > div,
+    input {
+        background-color: #0A192F !important;
+        color: #E6F1FF !important;
+        border-color: #1D2D50 !important;
+    }
+
+    div[data-baseweb="popover"], 
+    ul[data-baseweb="menu"] {
+        background-color: #112240 !important;
+        border: 1px solid #1D2D50 !important;
+    }
+    
+    li[data-baseweb="option"] {
+        background-color: #112240 !important;
+        color: #E6F1FF !important;
+    }
+
+    /* 5. Bandeau d'en-tête (Banner) */
     .platform-banner {
-        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
-        border: 1px solid #C59B27 !important; /* Bordure dorée */
+        background: linear-gradient(135deg, #112240 0%, #0A192F 100%) !important;
+        border: 1px solid #C59B27 !important;
         border-radius: 10px !important;
         padding: 24px 32px !important;
         margin-bottom: 24px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
     }
 
     .platform-kicker {
-        color: #C59B27 !important; /* "BANK OF AFRICA" en doré */
+        color: #C59B27 !important;
         font-family: 'Segoe UI', sans-serif !important;
         font-size: 0.82rem !important;
         font-weight: 700 !important;
         letter-spacing: 2.5px !important;
         text-transform: uppercase !important;
-        margin-bottom: 6px !important;
     }
 
     .platform-title {
-        color: #F8FAFC !important;
-        font-family: 'Segoe UI', sans-serif !important;
+        color: #E6F1FF !important;
         font-size: 1.6rem !important;
         font-weight: 700 !important;
-        margin: 0 0 6px 0 !important;
     }
 
     .platform-subtitle {
-        color: #94A3B8 !important;
-        font-family: 'Segoe UI', sans-serif !important;
+        color: #8892B0 !important;
         font-size: 0.92rem !important;
-        margin: 0 !important;
     }
 
     .platform-divider {
         border: none !important;
-        border-top: 1px solid #C59B27 !important; /* Séparateur doré */
+        border-top: 1px solid #C59B27 !important;
         opacity: 0.5 !important;
-        margin-top: 16px !important;
-        margin-bottom: 0 !important;
     }
 
-    /* 3. Style des cartes en Ardoise */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #1E293B !important;
-        border: 1px solid #334155 !important;
-        border-radius: 10px !important;
-    }
-
-    /* 4. Métriques */
+    /* 6. Métriques */
     div[data-testid="stMetric"] {
-        background-color: #334155 !important;
-        border: 1px solid #475569 !important;
+        background-color: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid #1D2D50 !important;
         border-radius: 8px !important;
     }
 
     div[data-testid="stMetricLabel"] {
-        color: #94A3B8 !important;
-        font-size: 0.8rem !important;
-        text-transform: uppercase;
+        color: #8892B0 !important;
     }
 
     div[data-testid="stMetricValue"] {
-        color: #38BDF8 !important;
-        font-size: 1.05rem !important;
+        color: #64FFDA !important;
         white-space: nowrap !important;
     }
 
-    h1, h2, h3, h4, h5, h6, p, label, .stMarkdown {
-        color: #F8FAFC !important;
+    h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {
+        color: #E6F1FF !important;
     }
 </style>
 """

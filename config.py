@@ -12,6 +12,7 @@ COLOR_BLUE_ACCENT = "#64FFDA"   # accent secondaire (indicateurs positifs, prév
 COLOR_TEXT = "#E6F1FF"          # texte principal sur fond sombre
 COLOR_SUBTEXT = "#8892B0"       # texte secondaire / légendes / labels
 
+
 # ------------------------------------------------------------------------------
 # Couleurs dédiées aux graphiques (Plotly) — trajectoires Emis / Reçus
 # Choisies pour un CONTRASTE FORT sur fond marine sombre (les tons bronze/or
