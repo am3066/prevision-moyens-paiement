@@ -1,0 +1,226 @@
+import matplotlib.pyplot as plt
+
+# ==============================================================================
+# PALETTE DE COULEURS — PLATEFORME INSTITUTIONNELLE (Dashboard sombre)
+# ==============================================================================
+COLOR_NAVY_BG = "#0A192F"       # fond général de l'application
+COLOR_CARD_BG = "#112240"       # fond des cartes / panneaux
+COLOR_BORDER = "#1D2D50"        # bordures des cartes, séparateurs
+COLOR_GOLD = "#C59B27"          # accent principal (boutons, badges, liens actifs)
+COLOR_GOLD_MUTED = "#8C6239"    # variante bronze, pour les éléments secondaires
+COLOR_BLUE_ACCENT = "#64FFDA"   # accent secondaire (indicateurs positifs, prévision Emis)
+COLOR_TEXT = "#E6F1FF"          # texte principal sur fond sombre
+COLOR_SUBTEXT = "#8892B0"       # texte secondaire / légendes / labels
+
+# ------------------------------------------------------------------------------
+# Couleurs dédiées aux graphiques (Plotly) — trajectoires Emis / Reçus
+# ------------------------------------------------------------------------------
+COLOR_EMIS_HIST = "#4A90E2"
+COLOR_EMIS_PREV = "#64FFDA"
+COLOR_RECUS_HIST = "#8C6239"
+COLOR_RECUS_PREV = "#C59B27"
+
+# ------------------------------------------------------------------------------
+# Couleurs pour les graphiques matplotlib EXPORTÉS DANS LE RAPPORT WORD.
+# Volontairement CLAIRES (fond blanc/gris très pâle) : un graphique au fond
+# marine intégré dans un document Word destiné à être imprimé ou lu en noir et
+# blanc serait illisible. Le thème sombre reste réservé à l'app, pas au rapport.
+# ------------------------------------------------------------------------------
+COLOR_LIGHT_BG = "#F7F9FB"
+COLOR_NAVY = "#0A2540"          # bleu marine "print-friendly", plus profond que sur écran
+
+# ------------------------------------------------------------------------------
+# Tokens de mise en page
+# ------------------------------------------------------------------------------
+RADIUS_CARD = "10px"
+FONT_STACK = "'Segoe UI', 'Inter', 'Calibri', sans-serif"
+
+
+def appliquer_theme_graphique():
+    """Configuration matplotlib pour les graphiques exportés dans le rapport
+    Word (fond clair, indépendant du thème sombre de l'application)."""
+    plt.rcParams.update({
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Segoe UI", "Calibri", "Arial"],
+        "axes.facecolor": COLOR_LIGHT_BG,
+        "figure.facecolor": "#FFFFFF",
+        "axes.edgecolor": COLOR_BORDER,
+        "axes.linewidth": 0.8,
+        "axes.grid": True,
+        "grid.color": "#EDEDED",
+        "grid.linestyle": "-",
+        "grid.linewidth": 0.7,
+        "font.size": 9.5,
+        "axes.titlesize": 11,
+        "axes.titleweight": "bold",
+        "axes.titlecolor": COLOR_NAVY,
+        "axes.labelsize": 9.5,
+        "axes.labelcolor": "#2A2A2A",
+        "xtick.color": "#4A4A4A",
+        "ytick.color": "#4A4A4A",
+        "legend.fontsize": 9,
+        "legend.frameon": True,
+        "legend.facecolor": "#FFFFFF",
+        "legend.edgecolor": COLOR_BORDER,
+    })
+
+
+# ==============================================================================
+# CSS INJECTÉ DANS L'APPLICATION (bandeau, cartes, boutons, badges d'étape)
+# ==============================================================================
+CSS_APPLICATION = f"""
+<style>
+    .block-container {{
+        padding-top: 1.5rem;
+        max-width: 1200px;
+    }}
+
+    /* ---- Bandeau d'en-tête institutionnel ---- */
+    .platform-banner {{
+        background: linear-gradient(90deg, {COLOR_CARD_BG} 0%, {COLOR_NAVY_BG} 100%);
+        border: 1px solid {COLOR_BORDER};
+        border-radius: {RADIUS_CARD};
+        padding: 28px 36px;
+        margin-bottom: 28px;
+    }}
+    .platform-kicker {{
+        color: {COLOR_GOLD};
+        font-family: {FONT_STACK};
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }}
+    .platform-title {{
+        color: {COLOR_TEXT};
+        font-family: {FONT_STACK};
+        font-size: 1.9rem;
+        font-weight: 700;
+        margin: 0 0 6px 0;
+        letter-spacing: 0.3px;
+    }}
+    .platform-subtitle {{
+        color: {COLOR_SUBTEXT};
+        font-family: {FONT_STACK};
+        font-size: 0.92rem;
+        margin: 0;
+    }}
+    .platform-divider {{
+        border: none;
+        border-top: 1px solid {COLOR_GOLD};
+        opacity: 0.4;
+        margin-top: 18px;
+    }}
+
+    /* ---- Badge numéroté + titre de section ---- */
+    .section-header {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 6px;
+        margin-bottom: 14px;
+    }}
+    .section-badge {{
+        background-color: {COLOR_GOLD};
+        color: {COLOR_NAVY_BG};
+        font-family: {FONT_STACK};
+        font-weight: 700;
+        font-size: 0.85rem;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }}
+    .section-title {{
+        color: {COLOR_TEXT};
+        font-family: {FONT_STACK};
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+    }}
+    .section-caption {{
+        color: {COLOR_SUBTEXT};
+        font-family: {FONT_STACK};
+        font-size: 0.85rem;
+        margin: -6px 0 16px 40px;
+    }}
+
+    /* ---- Cartes (conteneurs à bordure Streamlit natifs) ---- */
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        border-radius: {RADIUS_CARD} !important;
+        border-color: {COLOR_BORDER} !important;
+        background-color: {COLOR_CARD_BG} !important;
+    }}
+
+    /* ---- Métriques ---- */
+    div[data-testid="stMetric"] {{
+        background-color: rgba(255,255,255,0.02);
+        border: 1px solid {COLOR_BORDER};
+        border-radius: 8px;
+        padding: 14px 16px;
+    }}
+    div[data-testid="stMetricLabel"] {{
+        color: {COLOR_SUBTEXT} !important;
+        font-size: 0.78rem !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }}
+    div[data-testid="stMetricValue"] {{
+        color: {COLOR_TEXT} !important;
+    }}
+
+    /* ---- Boutons ---- */
+    .stButton > button {{
+        font-family: {FONT_STACK};
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+        border-radius: 6px;
+        padding: 0.55rem 1.4rem;
+    }}
+
+    /* ---- Séparateur discret entre grandes sections ---- */
+    .section-divider {{
+        border: none;
+        border-top: 1px solid {COLOR_BORDER};
+        margin: 32px 0;
+    }}
+</style>
+"""
+
+
+def render_banner(titre, sous_titre, kicker="BANK OF AFRICA"):
+    """Affiche le bandeau d'en-tête institutionnel en haut de l'application."""
+    import streamlit as st
+    st.markdown(f"""
+    <div class="platform-banner">
+        <div class="platform-kicker">{kicker}</div>
+        <div class="platform-title">{titre}</div>
+        <div class="platform-subtitle">{sous_titre}</div>
+        <hr class="platform-divider">
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_section_header(numero, titre, caption=None):
+    """Affiche un en-tête de section avec badge numéroté, cohérent avec le
+    thème de la plateforme (remplace st.header)."""
+    import streamlit as st
+    st.markdown(f"""
+    <div class="section-header">
+        <div class="section-badge">{numero}</div>
+        <p class="section-title">{titre}</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if caption:
+        st.markdown(f'<p class="section-caption">{caption}</p>', unsafe_allow_html=True)
+
+
+def render_divider():
+    import streamlit as st
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
